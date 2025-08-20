@@ -10,6 +10,7 @@ public class UI {
 
     public String getExit() {
         StringBuilder sb = new StringBuilder();
+        sb.append("____________________________________________________________\n");
         sb.append(" Bye. Hope to see you again soon!\n");
         sb.append("____________________________________________________________");
         return sb.toString();

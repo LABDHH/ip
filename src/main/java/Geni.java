@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Geni {
@@ -11,12 +12,32 @@ public class Geni {
         System.out.println(ui.getGreeting());
         Scanner sc = new Scanner(System.in);
         String inp = sc.nextLine().trim();
+        ArrayList<Task> store = new ArrayList<>();
+
         while (!inp.equals("bye")) {
-            StringBuilder output = new StringBuilder();
-            output.append("____________________________________________________________\n");
-            output.append(inp).append('\n');
-            output.append("____________________________________________________________\n");
-            System.out.println(output);
+
+            if (inp.equals("list")) {
+                StringBuilder local_output = new StringBuilder();
+                int n = store.size();
+                local_output.append("____________________________________________________________\n");
+                for (int i = 0; i < n; i++) {
+                    local_output.append(i + 1).append(". ").append(store.get(i).getDescription()).append('\n');
+                }
+                local_output.append("____________________________________________________________\n");
+                System.out.println(local_output);
+            }
+            else {
+                Task task = new Task(inp);
+                store.add(task);
+
+                StringBuilder output = new StringBuilder();
+
+                output.append("____________________________________________________________\n");
+                output.append("added: ").append(task.getDescription()).append('\n');
+                output.append("____________________________________________________________\n");
+                System.out.println(output);
+
+            }
             inp = sc.nextLine().trim();
 
         }
