@@ -57,4 +57,14 @@ public class UI {
         sb.append("____________________________________________________________\n");
         System.out.print(sb);
     }
+    public void printDeleted(Task task, int count) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("____________________________________________________________\n");
+        sb.append(" Noted. I've removed this task:\n");
+        sb.append("   ").append(task).append("\n");
+        sb.append("Now you have ").append(count).append(" tasks in the list.\n");
+        sb.append("____________________________________________________________\n");
+        System.out.print(sb);
+
+    }
 }

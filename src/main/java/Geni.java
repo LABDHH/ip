@@ -82,7 +82,18 @@ public class Geni {
                     store.add(task);
                     ui.printAdded(task, store.size());
 
-                } else {
+                } else if (inpt[0].equals("delete")) {
+                    if (inpt.length < 2) {
+                        throw new GeniException("Please provide the task number to delete.");
+                    }
+                    int x = Integer.parseInt(inpt[1]) - 1;
+                    if (x < 0 || x >= store.size()) {
+                        throw new GeniException("Task number out of range, cannot delete.");
+                    }
+                    Task removed = store.remove(x );
+                    ui.printDeleted(removed,store.size());
+                }
+                else {
                     throw new GeniException("Sorry, I don’t know what \"" + inpt[0] + "\" means.");
 
 
