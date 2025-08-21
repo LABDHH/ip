@@ -23,58 +23,55 @@ public class Geni {
                     if (!store.get(i).getStatusIcon().equals("X")) {
                         store.get(i).markAsDone();
                     }
-                    StringBuilder local_output = new StringBuilder();
-                    local_output.append("____________________________________________________________\n");
-                    local_output.append("Nice! I've marked this task as done:\n");
-                    local_output.append("[")
-                            .append(store.get(i).getStatusIcon())
-                            .append("] ")
-                            .append(store.get(i).getDescription()).append('\n');
-                    local_output.append("____________________________________________________________\n");
-                    System.out.println(local_output);
+                    ui.printMark(store.get(i), true);
 
                 }
                 else {
                     if (store.get(i).getStatusIcon().equals("X")) {
                         store.get(i).markAsUndone();
                     }
-                    StringBuilder local_output = new StringBuilder();
-                    local_output.append("____________________________________________________________\n");
-                    local_output.append("OK, I've marked this task as not done yet:\n");
-                    local_output.append("[")
-                                    .append(store.get(i).getStatusIcon())
-                                    .append("] ")
-                                    .append(store.get(i).getDescription()).append('\n');
-
-                    local_output.append("____________________________________________________________\n");
-                    System.out.println(local_output);
+                    ui.printMark(store.get(i), false);
                 }
             }
+
+            else if (inpt[0].equals("list")) {
+                    ui.printList(store);
+                }
+            else if (inpt[0].equals("todo")) {
+                Task task = new Todo(inp.substring(5).trim());
+                store.add(task);
+                ui.printAdded(task, store.size());
+            }
+
+            else if (inpt[0].equals("deadline")) {
+                String local_inp = inp.substring(9);
+                String[] local_1 = local_inp.split("/by");
+                Task task = new Deadline(local_1[0].trim(),local_1[1].trim());
+                store.add(task);
+                ui.printAdded(task, store.size());
+
+            }
+            else if (inpt[0].equals("event")) {
+                String local_inp = inp.substring(6);
+                String[] local_1 = local_inp.split("/from");
+                String desc = local_1[0].trim();
+                String[] local_2 = local_1[1].trim().split("/to");
+                String from = local_2[0].trim();
+                String to = local_2[1].trim();
+                Task task = new Event(desc, from, to);
+                store.add(task);
+                ui.printAdded(task, store.size());
+
+            }
+
             else {
-
-                if (inpt[0].equals("list")) {
-                    StringBuilder local_output = new StringBuilder();
-                    int n = store.size();
-
-                    local_output.append("____________________________________________________________\n");
-                    for (int i = 0; i < n; i++) {
-                        local_output.append(i + 1).append(".").append("[").append(store.get(i).getStatusIcon()).append("] ").append(store.get(i).getDescription()).append('\n');
-                    }
-                    local_output.append("____________________________________________________________\n");
-                    System.out.println(local_output);
-                } else {
                     Task task = new Task(inp);
                     store.add(task);
 
-                    StringBuilder output = new StringBuilder();
-
-                    output.append("____________________________________________________________\n");
-                    output.append("added: ").append(task.getDescription()).append('\n');
-                    output.append("____________________________________________________________\n");
-                    System.out.println(output);
+                    ui.printAdded(task, store.size());
 
                 }
-            }
+
             inp = sc.nextLine().trim();
             inpt = inp.split(" ");
 
@@ -82,6 +79,7 @@ public class Geni {
 
         System.out.println(ui.getExit());
     }
+
     public static void main(String[] args) {
         new Geni().run();
     }
