@@ -52,4 +52,9 @@ public class UI {
         sb.append("____________________________________________________________\n");
         System.out.print(sb);
     }
+    public void line() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("____________________________________________________________\n");
+        System.out.print(sb);
+    }
 }
