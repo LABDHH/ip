@@ -5,6 +5,7 @@ public class UI {
         StringBuilder sb = new StringBuilder();
         sb.append("____________________________________________________________\n");
         sb.append(" Hello! I'm Geni\n");
+
         sb.append(" What can I do for you?\n");
         sb.append("____________________________________________________________\n");
         return sb.toString();
@@ -30,7 +31,7 @@ public class UI {
                 .append("] ")
                 .append(task.getDescription()).append('\n');
         sb.append("____________________________________________________________\n");
-        System.out.println(sb);
+        System.out.print(sb);
     }
     public void printList(ArrayList<Task> store) {
         StringBuilder sb = new StringBuilder();
@@ -40,7 +41,7 @@ public class UI {
             sb.append(i + 1).append(".").append(store.get(i)).append("\n");
         }
         sb.append("____________________________________________________________\n");
-        System.out.println(sb);
+        System.out.print(sb);
     }
     public void printAdded(Task task, int count) {
         StringBuilder sb = new StringBuilder();
@@ -49,6 +50,6 @@ public class UI {
         sb.append("  ").append(task).append("\n");
         sb.append("Now you have ").append(count).append(" tasks in the list.\n");
         sb.append("____________________________________________________________\n");
-        System.out.println(sb);
+        System.out.print(sb);
     }
 }

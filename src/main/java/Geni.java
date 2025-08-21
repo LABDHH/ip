@@ -9,7 +9,7 @@ public class Geni {
     }
     public void run() {
 
-        System.out.println(ui.getGreeting());
+        System.out.print(ui.getGreeting());
         Scanner sc = new Scanner(System.in);
         String inp = sc.nextLine().trim();
         String[] inpt = inp.split(" ");
