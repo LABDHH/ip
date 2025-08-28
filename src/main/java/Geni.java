@@ -3,16 +3,18 @@ import java.util.Scanner;
 
 public class Geni {
     private UI ui;
+    private Storage storage;
 
-    public Geni() {
+    public Geni(String filePath) {
         ui = new UI();
+        storage = new Storage(filePath);
     }
     public void run() {
 
         System.out.print(ui.getGreeting());
         Scanner sc = new Scanner(System.in);
 
-        ArrayList<Task> store = new ArrayList<>();
+        ArrayList<Task> store = storage.load();
 
         while (true) {
             try {
@@ -37,17 +39,20 @@ public class Geni {
                     }
 
                     if (inpt[0].equals("mark")) {
-
+                        Task oldTask = store.get(i);
                         if (!store.get(i).getStatusIcon().equals("X")) {
                             store.get(i).markAsDone();
                         }
                         ui.printMark(store.get(i), true);
+                        storage.saveMarkReplace(store.get(i),i);
 
                     } else {
+                        Task oldTask = store.get(i);
                         if (store.get(i).getStatusIcon().equals("X")) {
                             store.get(i).markAsUndone();
                         }
                         ui.printMark(store.get(i), false);
+                        storage.saveMarkReplace(store.get(i),i);
                     }
                 } else if (inpt[0].equals("list")) {
                     ui.printList(store);
@@ -57,6 +62,7 @@ public class Geni {
                     }
                     Task task = new Todo(inp.substring(5).trim());
                     store.add(task);
+                    storage.saveAdd(task);
                     ui.printAdded(task, store.size());
                 } else if (inpt[0].equals("deadline")) {
                     String local_inp = inp.substring(9);
@@ -66,6 +72,7 @@ public class Geni {
                     }
                     Task task = new Deadline(local_1[0].trim(), local_1[1].trim());
                     store.add(task);
+                    storage.saveAdd(task);
                     ui.printAdded(task, store.size());
 
                 } else if (inpt[0].equals("event")) {
@@ -80,6 +87,7 @@ public class Geni {
                     String to = local_2[1].trim();
                     Task task = new Event(desc, from, to);
                     store.add(task);
+                    storage.saveAdd(task);
                     ui.printAdded(task, store.size());
 
                 } else if (inpt[0].equals("delete")) {
@@ -91,6 +99,7 @@ public class Geni {
                         throw new GeniException("Task number out of range, cannot delete.");
                     }
                     Task removed = store.remove(x );
+                    storage.savedelete(removed);
                     ui.printDeleted(removed,store.size());
                 }
                 else {
@@ -116,6 +125,6 @@ public class Geni {
 
 
     public static void main(String[] args) {
-        new Geni().run();
+        new Geni("./geni.txt").run();
     }
 }

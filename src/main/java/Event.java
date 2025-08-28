@@ -13,4 +13,9 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 
+    @Override
+    public String toSaveFormat() {
+        return "E | " + (super.getStatusIcon().equals("X") ? "1" : "0") + " | " + super.getDescription() +" | " + from + "-" + to;
+    }
+
 }
