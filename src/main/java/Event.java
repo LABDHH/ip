@@ -1,21 +1,39 @@
-public class Event extends Task {
-    protected String from;
-    protected String to;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    public Event(String description, String from, String to) {
+public class Event extends Task {
+    protected LocalDateTime from;
+    protected LocalDateTime to;
+
+    public Event(String description, String fromStr, String toStr) throws GeniException{
         super(description);
-        this.from = from;
-        this.to = to;
+
+        try {
+            DateTimeFormatter inputFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            this.from = LocalDateTime.parse(fromStr.trim(), inputFmt);
+            this.to = LocalDateTime.parse(toStr.trim(), inputFmt);
+
+        }
+        catch (DateTimeParseException e) {
+            throw new GeniException("Invalid date-time format! Please use format: yyyy-MM-dd HHmm");
+        }
+
+
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        DateTimeFormatter outputFmt = DateTimeFormatter.ofPattern("MMM d yyyy, h:mma");
+        return "[E]" + super.toString() + " (from: "
+                + from.format(outputFmt) + " to: " + to.format(outputFmt) + ")";
     }
 
     @Override
     public String toSaveFormat() {
-        return "E | " + (super.getStatusIcon().equals("X") ? "1" : "0") + " | " + super.getDescription() +" | " + from + "-" + to;
+        DateTimeFormatter saveFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return "E | " + (super.getStatusIcon().equals("X") ? "1" : "0")
+                + " | " + super.getDescription() + " | "
+                + from.format(saveFmt) + " - " + to.format(saveFmt);
     }
-
 }

@@ -1,18 +1,34 @@
-public class Deadline extends Task {
-    protected String time;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    public Deadline(String description, String time) {
+public class Deadline extends Task {
+    protected LocalDateTime by;
+
+    public Deadline(String description, String time) throws GeniException{
         super(description);
-        this.time = time;
+
+        try {
+            DateTimeFormatter inputFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            this.by = LocalDateTime.parse(time.trim(), inputFmt);
+
+        }
+        catch (DateTimeParseException e) {
+            throw new GeniException("Invalid date-time format! Please use format: yyyy-MM-dd HHmm");
+        }
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + time + ")";
+        DateTimeFormatter outputFmt = DateTimeFormatter.ofPattern("MMM d yyyy, h:mma");
+        return "[D]" + super.toString() + " (by: " + by.format(outputFmt) + ")";
     }
 
     @Override
     public String toSaveFormat() {
-        return "D | " + (super.getStatusIcon().equals("X") ? "1" : "0") + " | " + super.getDescription() + " | " + time;
+
+        DateTimeFormatter saveFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return "D | " + (super.getStatusIcon().equals("X") ? "1" : "0")
+                + " | " + super.getDescription() + " | " + by.format(saveFmt);
     }
 }

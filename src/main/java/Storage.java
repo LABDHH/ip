@@ -40,7 +40,7 @@ public class Storage {
                         storeTask.add(deadline);
                         break;
                     case "E":
-                        String[] timeline = parts[3].split("-");
+                        String[] timeline = parts[3].split(" - ");
                         Task event = new Event(parts[2], timeline[0], timeline[1]);
                         if (isDone) event.markAsDone();
                         storeTask.add(event);
@@ -53,6 +53,9 @@ public class Storage {
         }
         catch(FileNotFoundException e) {
             System.out.println("File not found: " + e.getMessage());
+        }
+        catch (GeniException e) {
+            System.out.println("please enter valid input");
         }
         return storeTask;
     }
@@ -81,7 +84,6 @@ public class Storage {
             List<String> lines = Files.readAllLines(Paths.get(filePath));
 
             if (index >= 0 && index < lines.size()) {
-                // directly replace the line at the same index
                 lines.set(index, newTask.toSaveFormat());
             }
 

@@ -39,7 +39,6 @@ public class Geni {
                     }
 
                     if (inpt[0].equals("mark")) {
-                        Task oldTask = store.get(i);
                         if (!store.get(i).getStatusIcon().equals("X")) {
                             store.get(i).markAsDone();
                         }
@@ -47,7 +46,7 @@ public class Geni {
                         storage.saveMarkReplace(store.get(i),i);
 
                     } else {
-                        Task oldTask = store.get(i);
+
                         if (store.get(i).getStatusIcon().equals("X")) {
                             store.get(i).markAsUndone();
                         }
@@ -89,6 +88,7 @@ public class Geni {
                     store.add(task);
                     storage.saveAdd(task);
                     ui.printAdded(task, store.size());
+
 
                 } else if (inpt[0].equals("delete")) {
                     if (inpt.length < 2) {
