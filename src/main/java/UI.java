@@ -33,12 +33,12 @@ public class UI {
         sb.append("____________________________________________________________\n");
         System.out.print(sb);
     }
-    public void printList(ArrayList<Task> store) {
+    public void printList(TaskList tasks) {
         StringBuilder sb = new StringBuilder();
         sb.append("____________________________________________________________\n");
         sb.append("Here are the tasks in your list:\n");
-        for (int i = 0; i < store.size(); i++) {
-            sb.append(i + 1).append(".").append(store.get(i)).append("\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append(i + 1).append(".").append(tasks.get(i)).append("\n");
         }
         sb.append("____________________________________________________________\n");
         System.out.print(sb);
@@ -66,5 +66,8 @@ public class UI {
         sb.append("____________________________________________________________\n");
         System.out.print(sb);
 
+    }
+    public void showLoadingError() {
+        System.out.println("OOPS! Something went wrong! Starting with an empty task list.");
     }
 }
