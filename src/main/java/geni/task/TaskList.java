@@ -1,5 +1,7 @@
 package geni.task;
+
 import java.util.ArrayList;
+
 /**
  * Represents a list of tasks.
  * Provides methods to add, get, delete tasks, and check the size of the list.
@@ -22,6 +24,7 @@ public class TaskList {
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
+
     /**
      * Adds a task to the list.
      *
@@ -31,6 +34,7 @@ public class TaskList {
     public void add(Task task) {
         tasks.add(task);
     }
+
     /**
      * Returns the task at the specified index.
      *
@@ -54,6 +58,7 @@ public class TaskList {
      *
      * @return size of the task list
      */
+
     public int size() {
         return tasks.size();
     }

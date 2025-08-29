@@ -1,12 +1,13 @@
 package geni.parser;
-import geni.ui.UI;
+
+import geni.exception.GeniException;
 import geni.storage.Storage;
+import geni.task.Deadline;
+import geni.task.Event;
+import geni.task.Task;
 import geni.task.TaskList;
 import geni.task.Todo;
-import geni.task.Event;
-import geni.task.Deadline;
-import geni.task.Task;
-import geni.exception.GeniException;
+import geni.ui.UI;
 
 /**
  * Parses user input and executes commands.

@@ -1,14 +1,20 @@
 package geni;
-import geni.ui.UI;
+
+import java.util.Scanner;
+
+import geni.exception.GeniException;
+import geni.parser.Parser;
 import geni.storage.Storage;
 import geni.task.TaskList;
 import geni.parser.Parser;
+import geni.ui.UI;
 import geni.exception.GeniException;
 import java.util.Scanner;
 /**
  * Entry point of the Geni application.
  * Initializes components and runs the main loop.
  */
+
 public class Geni {
     private UI ui;
     private Storage storage;

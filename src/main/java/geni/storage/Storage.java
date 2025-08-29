@@ -1,17 +1,21 @@
 package geni.storage;
-import geni.exception.GeniException;
-import geni.task.Todo;
-import geni.task.Event;
-import geni.task.Deadline;
-import geni.task.Task;
-import java.io.*;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
+import geni.exception.GeniException;
+import geni.task.Deadline;
+import geni.task.Event;
+import geni.task.Task;
+import geni.task.Todo;
 
 /**
  * Handles saving and loading tasks to and from a file.
@@ -49,36 +53,35 @@ public class Storage {
                 boolean isDone = parts[1].equals("1");
 
                 switch (type) {
-                    case "T":
-                        Task todo = new Todo(parts[2]);
-                        if (isDone) todo.markAsDone();
-                        storeTask.add(todo);
-                        break;
-                    case "D":
-                        Task deadline = new Deadline(parts[2], parts[3]);
-                        if (isDone) deadline.markAsDone();
-                        storeTask.add(deadline);
-                        break;
-                    case "E":
-                        String[] timeline = parts[3].split(" - ");
-                        Task event = new Event(parts[2], timeline[0], timeline[1]);
-                        if (isDone) event.markAsDone();
-                        storeTask.add(event);
-                        break;
-                    default:
-                        continue;
+                case "T":
+                    Task todo = new Todo(parts[2]);
+                    if (isDone) todo.markAsDone();
+                    storeTask.add(todo);
+                    break;
+                case "D":
+                    Task deadline = new Deadline(parts[2], parts[3]);
+                    if (isDone) deadline.markAsDone();
+                    storeTask.add(deadline);
+                    break;
+                case "E":
+                    String[] timeline = parts[3].split(" - ");
+                    Task event = new Event(parts[2], timeline[0], timeline[1]);
+                    if (isDone) event.markAsDone();
+                    storeTask.add(event);
+                    break;
+                default:
+                    continue;
                 }
 
             }
-        }
-        catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e.getMessage());
-        }
-        catch (GeniException e) {
+        } catch (GeniException e) {
             System.out.println("please enter valid input");
         }
         return storeTask;
     }
+
     /**
      * Removes a given task from the save file.
      *
@@ -95,8 +98,7 @@ public class Storage {
                 }
             }
             Files.write(Paths.get(filePath), lines);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Error deleting task: " + e.getMessage());
         }
     }
@@ -107,7 +109,6 @@ public class Storage {
      * @param index   position of the task to update
      */
     public void saveMarkReplace(Task newTask, int index) {
-
 
 
         try {
@@ -123,18 +124,19 @@ public class Storage {
         }
 
     }
+
     /**
      * Appends a new task to the save file.
      *
      * @param task the task to save
      */
+
     public void saveAdd(Task task) {
         try {
             PrintWriter pw = new PrintWriter(new FileOutputStream(filePath, true));
             pw.println(task.toSaveFormat());
             pw.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Error adding task: " + e.getMessage());
         }
     }

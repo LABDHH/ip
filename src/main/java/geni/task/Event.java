@@ -3,6 +3,7 @@ import geni.exception.GeniException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 /**
  * Represents a task that occurs over a specific time interval.
  * Stores the description, start time, and end time of the event.
@@ -19,6 +20,13 @@ public class Event extends Task {
      * @throws GeniException if the date-time format is invalid
      */
     public Event(String description, String fromStr, String toStr) throws GeniException{
+
+    public class Event extends Task {
+    	protected LocalDateTime from;
+    	protected LocalDateTime to;
+
+    public Event(String description, String fromStr, String toStr) throws GeniException {
+
         super(description);
 
         try {
@@ -26,8 +34,7 @@ public class Event extends Task {
             this.from = LocalDateTime.parse(fromStr.trim(), inputFmt);
             this.to = LocalDateTime.parse(toStr.trim(), inputFmt);
 
-        }
-        catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             throw new GeniException("Invalid date-time format! Please use format: yyyy-MM-dd HHmm");
         }
 

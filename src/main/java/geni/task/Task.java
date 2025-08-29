@@ -1,8 +1,12 @@
 package geni.task;
+
 /**
  * Represents a generic task with a description and completion status.
  * Serves as the base class for specific task types like Todo, Deadline, and Event.
  */
+
+
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -16,6 +20,7 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+
     /**
      * Returns the status icon of the task.
      *
@@ -31,6 +36,7 @@ public class Task {
     public void markAsDone() {
         this.isDone = true;
     }
+
     /**
      * Marks the task as not done.
      */
