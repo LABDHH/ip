@@ -8,19 +8,34 @@ import geni.task.Deadline;
 import geni.task.Task;
 import geni.exception.GeniException;
 
-
+/**
+ * Parses user input and executes commands.
+ * Supports adding, deleting, listing, and updating tasks.
+ */
 public class Parser {
 
     private UI ui;
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * Creates a {@code Parser}.
+     *
+     * @param ui      UI for displaying messages
+     * @param storage storage handler for saving tasks
+     * @param tasks   task list to operate on
+     */
     public Parser(UI ui, Storage storage, TaskList tasks) {
         this.ui = ui;
         this.storage = storage;
         this.tasks = tasks;
     }
-
+    /**
+     * Parses and executes a command string.
+     *
+     * @param inp raw user input
+     * @throws GeniException if input is invalid or exit is requested
+     */
     public void parseAndExecute(String inp) throws GeniException {
         inp = inp.trim();
         String[] inpt = splitted(inp, " ");
@@ -50,7 +65,12 @@ public class Parser {
             throw new GeniException("Sorry, I don’t know what \"" + command + "\" means.");
         }
     }
-
+    /**
+     * Handles marking or unmarking a task.
+     *
+     * @param inpt user input split into tokens
+     * @throws GeniException if task number is invalid
+     */
     private void handleChangeStatus(String[] inpt) throws GeniException {
         if (inpt.length < 2) {
             throw new GeniException("Please provide a task number to " + inpt[0] + ".");
@@ -76,6 +96,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles adding a {@code Todo} task.
+     *
+     * @param inp full input string
+     * @throws GeniException if description is missing
+     */
     private void handleAddTodo(String inp) throws GeniException {
         if (inp.length() <= 4) {
             throw new GeniException("A todo cannot be empty! Please add a description.");
@@ -85,7 +111,12 @@ public class Parser {
         storage.saveAdd(task);
         ui.printAdded(task, tasks.size());
     }
-
+    /**
+     * Handles adding a {@code Deadline} task.
+     *
+     * @param inp full input string
+     * @throws GeniException if format is invalid
+     */
     private void handleAddDeadline(String inp) throws GeniException {
         String local_inp = inp.substring(9);
         String[] local_1 = local_inp.split("/by");
@@ -97,7 +128,12 @@ public class Parser {
         storage.saveAdd(task);
         ui.printAdded(task, tasks.size());
     }
-
+    /**
+     * Handles adding an {@code Event} task.
+     *
+     * @param inp full input string
+     * @throws GeniException if format is invalid
+     */
     private void handleAddEvent(String inp) throws GeniException {
         String local_inp = inp.substring(6);
         String[] local_1 = local_inp.split("/from");
@@ -117,6 +153,12 @@ public class Parser {
         ui.printAdded(task, tasks.size());
     }
 
+    /**
+     * Handles deleting a task.
+     *
+     * @param inpt user input split into tokens
+     * @throws GeniException if task number is invalid
+     */
     private void handleDelete(String[] inpt) throws GeniException {
         if (inpt.length < 2) {
             throw new GeniException("Please provide the task number to delete.");
@@ -129,16 +171,32 @@ public class Parser {
         storage.savedelete(removed);
         ui.printDeleted(removed, tasks.size());
     }
-
+    /**
+     * Checks if a command is an exit command.
+     *
+     * @param input command string
+     * @return true if input is "bye"
+     */
     public boolean isExitCommand(String input) {
         return "bye".equals(input);
     }
 
-
+    /**
+     * Splits a string by a delimiter.
+     *
+     * @param string   input string
+     * @param splitter delimiter
+     * @return array of split strings
+     */
     public String[] splitted(String string, String splitter) {
         return string.split(splitter);
     }
-
+    /**
+     * Checks if a command changes task status.
+     *
+     * @param string command string
+     * @return true if "mark" or "unmark"
+     */
     public boolean isChangingStatus(String string) {
         return string.equals("mark") || string.equals("unmark");
     }

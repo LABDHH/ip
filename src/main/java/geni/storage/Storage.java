@@ -13,15 +13,27 @@ import java.util.Scanner;
 
 
 
-
+/**
+ * Handles saving and loading tasks to and from a file.
+ * Ensures that the user's task list persists across sessions.
+ */
 public class Storage {
     private String filePath;
+    /**
+     * Creates a {@code Storage} object with the given file path.
+     *
+     * @param filePath location of the save file
+     */
 
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-
+    /**
+     * Loads tasks from the file and converts them into  Task objects.
+     *
+     * @return a list of saved tasks
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> storeTask = new ArrayList<>();
         try {
@@ -67,6 +79,11 @@ public class Storage {
         }
         return storeTask;
     }
+    /**
+     * Removes a given task from the save file.
+     *
+     * @param taskToDelete the task to delete
+     */
     public void savedelete(Task taskToDelete) {
         try {
             List<String> lines = Files.readAllLines(Paths.get(filePath));
@@ -83,7 +100,12 @@ public class Storage {
             System.out.println("Error deleting task: " + e.getMessage());
         }
     }
-
+    /**
+     * Updates a task in the save file at the given index.
+     *
+     * @param newTask updated task
+     * @param index   position of the task to update
+     */
     public void saveMarkReplace(Task newTask, int index) {
 
 
@@ -101,6 +123,11 @@ public class Storage {
         }
 
     }
+    /**
+     * Appends a new task to the save file.
+     *
+     * @param task the task to save
+     */
     public void saveAdd(Task task) {
         try {
             PrintWriter pw = new PrintWriter(new FileOutputStream(filePath, true));
