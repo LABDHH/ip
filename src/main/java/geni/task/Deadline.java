@@ -1,9 +1,10 @@
 package geni.task;
-import geni.exception.GeniException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import geni.exception.GeniException;
 
 public class Deadline extends Task {
     protected LocalDateTime by;
@@ -15,8 +16,7 @@ public class Deadline extends Task {
             DateTimeFormatter inputFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             this.by = LocalDateTime.parse(time.trim(), inputFmt);
 
-        }
-        catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             throw new GeniException("Invalid date-time format! Please use format: yyyy-MM-dd HHmm");
         }
     }

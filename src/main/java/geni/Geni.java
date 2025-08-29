@@ -1,10 +1,12 @@
 package geni;
-import geni.ui.UI;
+
+import java.util.Scanner;
+
+import geni.exception.GeniException;
+import geni.parser.Parser;
 import geni.storage.Storage;
 import geni.task.TaskList;
-import geni.parser.Parser;
-import geni.exception.GeniException;
-import java.util.Scanner;
+import geni.ui.UI;
 
 public class Geni {
     private UI ui;

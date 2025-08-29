@@ -1,14 +1,16 @@
 package geni.task;
-import geni.exception.GeniException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import geni.exception.GeniException;
 
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
-    public Event(String description, String fromStr, String toStr) throws GeniException{
+    public Event(String description, String fromStr, String toStr) throws GeniException {
         super(description);
 
         try {
@@ -16,8 +18,7 @@ public class Event extends Task {
             this.from = LocalDateTime.parse(fromStr.trim(), inputFmt);
             this.to = LocalDateTime.parse(toStr.trim(), inputFmt);
 
-        }
-        catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             throw new GeniException("Invalid date-time format! Please use format: yyyy-MM-dd HHmm");
         }
 
