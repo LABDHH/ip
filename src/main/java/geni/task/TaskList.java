@@ -53,6 +53,7 @@ public class TaskList {
     public Task delete(int index) {
         return tasks.remove(index);
     }
+
     /**
      * Returns the number of tasks in the list.
      *
@@ -61,6 +62,15 @@ public class TaskList {
 
     public int size() {
         return tasks.size();
+    }
+    public ArrayList<Task> find(String keyword) {
+        ArrayList<Task> results = new ArrayList<>();
+        for (Task t : this.tasks) {
+            if (t.getDescription().contains(keyword)) {
+                results.add(t);
+            }
+        }
+        return results;
     }
 
 }

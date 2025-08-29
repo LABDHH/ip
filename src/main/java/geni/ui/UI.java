@@ -3,10 +3,12 @@ package geni.ui;
 import geni.task.Task;
 import geni.task.TaskList;
 import java.util.ArrayList;
+import java.util.List;
 /**
  * Handles all user interactions.
  * Provides methods to display messages, tasks, and errors.
  */
+
 public class UI {
     /**
      * Returns the greeting message.
@@ -114,5 +116,15 @@ public class UI {
      */
     public void showLoadingError() {
         System.out.println("OOPS! Something went wrong! Starting with an empty task list.");
+    }
+
+}
+    public void printFoundTasks(List<Task> foundTasks) {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Here are the matching tasks in your list:");
+        for (int i = 0; i < foundTasks.size(); i++) {
+            System.out.println(" " + (i + 1) + "." + foundTasks.get(i));
+        }
+        System.out.println("____________________________________________________________");
     }
 }
