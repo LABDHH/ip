@@ -19,8 +19,18 @@ public class TaskList {
     public Task delete(int index) {
         return tasks.remove(index);
     }
+
     public int size() {
         return tasks.size();
+    }
+    public ArrayList<Task> find(String keyword) {
+        ArrayList<Task> results = new ArrayList<>();
+        for (Task t : this.tasks) {
+            if (t.getDescription().contains(keyword)) {
+                results.add(t);
+            }
+        }
+        return results;
     }
 
 }

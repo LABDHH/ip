@@ -1,4 +1,6 @@
 package geni.parser;
+import java.util.ArrayList;
+
 import geni.ui.UI;
 import geni.storage.Storage;
 import geni.task.TaskList;
@@ -46,6 +48,8 @@ public class Parser {
             handleAddEvent(inp);
         } else if (command.equals("delete")) {
             handleDelete(inpt);
+        } else if (command.equals("find")) {
+            handleFind(inp);
         } else {
             throw new GeniException("Sorry, I don’t know what \"" + command + "\" means.");
         }
@@ -141,5 +145,13 @@ public class Parser {
 
     public boolean isChangingStatus(String string) {
         return string.equals("mark") || string.equals("unmark");
+    }
+    private void handleFind(String inp) throws GeniException {
+        if (inp.length() <= 5) {
+            throw new GeniException("Please specify a keyword to search for.");
+        }
+        String keyword = inp.substring(5).trim();
+        ArrayList<Task> foundTasks = tasks.find(keyword);
+        ui.printFoundTasks(foundTasks);
     }
 }
