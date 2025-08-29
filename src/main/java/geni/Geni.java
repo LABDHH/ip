@@ -1,3 +1,9 @@
+package geni;
+import geni.ui.UI;
+import geni.storage.Storage;
+import geni.task.TaskList;
+import geni.parser.Parser;
+import geni.exception.GeniException;
 import java.util.Scanner;
 
 public class Geni {

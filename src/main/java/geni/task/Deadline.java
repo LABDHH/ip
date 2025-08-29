@@ -1,3 +1,6 @@
+package geni.task;
+import geni.exception.GeniException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -5,7 +8,7 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
     protected LocalDateTime by;
 
-    public Deadline(String description, String time) throws GeniException{
+    public Deadline(String description, String time) throws GeniException {
         super(description);
 
         try {
