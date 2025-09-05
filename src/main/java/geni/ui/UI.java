@@ -2,7 +2,6 @@ package geni.ui;
 
 import geni.task.Task;
 import geni.task.TaskList;
-import java.util.ArrayList;
 import java.util.List;
 /**
  * Handles all user interactions.
@@ -118,7 +117,7 @@ public class UI {
         System.out.println("OOPS! Something went wrong! Starting with an empty task list.");
     }
 
-}
+
     public void printFoundTasks(List<Task> foundTasks) {
         System.out.println("____________________________________________________________");
         System.out.println(" Here are the matching tasks in your list:");

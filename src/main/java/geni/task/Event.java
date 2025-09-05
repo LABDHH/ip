@@ -19,11 +19,7 @@ public class Event extends Task {
      * @param toStr       end time in format "yyyy-MM-dd HHmm"
      * @throws GeniException if the date-time format is invalid
      */
-    public Event(String description, String fromStr, String toStr) throws GeniException{
 
-    public class Event extends Task {
-    	protected LocalDateTime from;
-    	protected LocalDateTime to;
 
     public Event(String description, String fromStr, String toStr) throws GeniException {
 
