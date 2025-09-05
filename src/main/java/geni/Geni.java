@@ -45,9 +45,11 @@ public class Geni {
         while (true) {
             try {
                 String inp = sc.nextLine();
-                parser.parseAndExecute(inp);
+                String response = parser.parseAndExecute(inp); // now returns String
+                System.out.print(response);
             } catch (GeniException e) {
                 if (e.getMessage().equals("exit")) {
+                    System.out.println(ui.getExit());
                     break;
                 }
                 ui.line();
@@ -55,7 +57,21 @@ public class Geni {
                 ui.line();
             }
         }
-        System.out.println(ui.getExit());
+
+    }
+    public String getGreetingMessage() {
+        return ui.getGreeting();
+    }
+    public String getResponse(String input) {
+        try {
+            // Change parseAndExecute to return a String instead of printing
+            return parser.parseAndExecute(input);
+        } catch (GeniException e) {
+            if (e.getMessage().equals("exit")) {
+                return ui.getExit();
+            }
+            return "OOPS! " + e.getMessage();
+        }
     }
     /**
      * The main entry point of the Geni application.
@@ -63,6 +79,7 @@ public class Geni {
      * @param args command-line arguments (not used)
      */
     public static void main(String[] args) {
-        new Geni("./geni.txt").run();
+        Launcher.main(args);
+       // new Geni("./geni.txt").run();
     }
 }

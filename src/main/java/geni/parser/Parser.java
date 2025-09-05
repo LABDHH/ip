@@ -39,7 +39,7 @@ public class Parser {
      * @param inp raw user input
      * @throws GeniException if input is invalid or exit is requested
      */
-    public void parseAndExecute(String inp) throws GeniException {
+    public String parseAndExecute(String inp) throws GeniException {
         inp = inp.trim();
         String[] inpt = splitted(inp, " ");
         String command = inpt[0];
@@ -53,19 +53,19 @@ public class Parser {
         }
 
         if (isChangingStatus(command)) {
-            handleChangeStatus(inpt);
+            return handleChangeStatus(inpt);
         } else if (command.equals("list")) {
-            ui.printList(tasks);
+            return ui.formatList(tasks);
         } else if (command.equals("todo")) {
-            handleAddTodo(inp);
+            return handleAddTodo(inp);
         } else if (command.equals("deadline")) {
-            handleAddDeadline(inp);
+            return handleAddDeadline(inp);
         } else if (command.equals("event")) {
-            handleAddEvent(inp);
+            return handleAddEvent(inp);
         } else if (command.equals("delete")) {
-            handleDelete(inpt);
+            return handleDelete(inpt);
         } else if (command.equals("find")) {
-            handleFind(inp);
+            return handleFind(inp);
         } else {
             throw new GeniException("Sorry, I don’t know what \"" + command + "\" means.");
         }
@@ -76,7 +76,7 @@ public class Parser {
      * @param inpt user input split into tokens
      * @throws GeniException if task number is invalid
      */
-    private void handleChangeStatus(String[] inpt) throws GeniException {
+    private String handleChangeStatus(String[] inpt) throws GeniException {
         if (inpt.length < 2) {
             throw new GeniException("Please provide a task number to " + inpt[0] + ".");
         }
@@ -90,14 +90,14 @@ public class Parser {
             if (!task.getStatusIcon().equals("X")) {
                 task.markAsDone();
             }
-            ui.printMark(task, true);
             storage.saveMarkReplace(task, i);
+            return ui.formatMark(task, true);
         } else {
             if (task.getStatusIcon().equals("X")) {
                 task.markAsUndone();
             }
-            ui.printMark(task, false);
             storage.saveMarkReplace(task, i);
+            return ui.formatMark(task, false);
         }
     }
 
@@ -107,14 +107,14 @@ public class Parser {
      * @param inp full input string
      * @throws GeniException if description is missing
      */
-    private void handleAddTodo(String inp) throws GeniException {
+    private String handleAddTodo(String inp) throws GeniException {
         if (inp.length() <= 4) {
             throw new GeniException("A todo cannot be empty! Please add a description.");
         }
         Task task = new Todo(inp.substring(5).trim());
         tasks.add(task);
         storage.saveAdd(task);
-        ui.printAdded(task, tasks.size());
+        return ui.formatAdded(task, tasks.size());
     }
     /**
      * Handles adding a {@code Deadline} task.
@@ -122,7 +122,7 @@ public class Parser {
      * @param inp full input string
      * @throws GeniException if format is invalid
      */
-    private void handleAddDeadline(String inp) throws GeniException {
+    private String handleAddDeadline(String inp) throws GeniException {
         String local_inp = inp.substring(9);
         String[] local_1 = local_inp.split("/by");
         if (local_1.length < 2) {
@@ -131,7 +131,7 @@ public class Parser {
         Task task = new Deadline(local_1[0].trim(), local_1[1].trim());
         tasks.add(task);
         storage.saveAdd(task);
-        ui.printAdded(task, tasks.size());
+        return ui.formatAdded(task, tasks.size());
     }
     /**
      * Handles adding an {@code Event} task.
@@ -139,7 +139,7 @@ public class Parser {
      * @param inp full input string
      * @throws GeniException if format is invalid
      */
-    private void handleAddEvent(String inp) throws GeniException {
+    private String handleAddEvent(String inp) throws GeniException {
         String local_inp = inp.substring(6);
         String[] local_1 = local_inp.split("/from");
         if (local_1.length < 2) {
@@ -155,7 +155,7 @@ public class Parser {
         Task task = new Event(desc, from, to);
         tasks.add(task);
         storage.saveAdd(task);
-        ui.printAdded(task, tasks.size());
+        return ui.formatAdded(task, tasks.size());
     }
 
     /**
@@ -164,7 +164,7 @@ public class Parser {
      * @param inpt user input split into tokens
      * @throws GeniException if task number is invalid
      */
-    private void handleDelete(String[] inpt) throws GeniException {
+    private String handleDelete(String[] inpt) throws GeniException {
         if (inpt.length < 2) {
             throw new GeniException("Please provide the task number to delete.");
         }
@@ -174,7 +174,15 @@ public class Parser {
         }
         Task removed = tasks.delete(x);
         storage.savedelete(removed);
-        ui.printDeleted(removed, tasks.size());
+        return ui.formatDeleted(removed, tasks.size());
+    }
+    private String handleFind(String inp) throws GeniException {
+        if (inp.length() <= 5) {
+            throw new GeniException("Please specify a keyword to search for.");
+        }
+        String keyword = inp.substring(5).trim();
+        ArrayList<Task> foundTasks = tasks.find(keyword);
+        return ui.formatFoundTasks(foundTasks);
     }
     /**
      * Checks if a command is an exit command.
@@ -205,12 +213,5 @@ public class Parser {
     public boolean isChangingStatus(String string) {
         return string.equals("mark") || string.equals("unmark");
     }
-    private void handleFind(String inp) throws GeniException {
-        if (inp.length() <= 5) {
-            throw new GeniException("Please specify a keyword to search for.");
-        }
-        String keyword = inp.substring(5).trim();
-        ArrayList<Task> foundTasks = tasks.find(keyword);
-        ui.printFoundTasks(foundTasks);
-    }
+
 }
