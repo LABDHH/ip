@@ -23,6 +23,7 @@ public class UI {
         sb.append("____________________________________________________________\n");
         return sb.toString();
     }
+
     /**
      * Returns the exit message.
      *
@@ -35,15 +36,12 @@ public class UI {
         sb.append("____________________________________________________________");
         return sb.toString();
     }
-    /**
-     * Prints the status of a task as marked or unmarked.
-     *
-     * @param task task to update
-     * @param done true if task is done, false otherwise
-     */
-    public void printMark(Task task, boolean done) {
+    public String formatLine() {
+        return "____________________________________________________________\n";
+    }
+    public String formatMark(Task task, boolean done) {
         StringBuilder sb = new StringBuilder();
-        sb.append("____________________________________________________________\n");
+        sb.append(formatLine());
         if (done) {
             sb.append("Nice! I've marked this task as done:\n");
         } else {
@@ -53,8 +51,59 @@ public class UI {
                 .append(task.getStatusIcon())
                 .append("] ")
                 .append(task.getDescription()).append('\n');
-        sb.append("____________________________________________________________\n");
-        System.out.print(sb);
+        sb.append(formatLine());
+        return sb.toString();
+    }
+    public String formatList(TaskList tasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(formatLine());
+        sb.append("Here are the tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append(i + 1).append(".").append(tasks.get(i)).append("\n");
+        }
+        sb.append(formatLine());
+        return sb.toString();
+    }
+
+    public String formatAdded(Task task, int count) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(formatLine());
+        sb.append("Got it. I've added this task:\n");
+        sb.append("  ").append(task).append("\n");
+        sb.append("Now you have ").append(count).append(" tasks in the list.\n");
+        sb.append(formatLine());
+        return sb.toString();
+    }
+
+    public String formatDeleted(Task task, int count) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(formatLine());
+        sb.append(" Noted. I've removed this task:\n");
+        sb.append("   ").append(task).append("\n");
+        sb.append("Now you have ").append(count).append(" tasks in the list.\n");
+        sb.append(formatLine());
+        return sb.toString();
+    }
+
+    public String formatFoundTasks(List<Task> foundTasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(formatLine());
+        sb.append(" Here are the matching tasks in your list:\n");
+        for (int i = 0; i < foundTasks.size(); i++) {
+            sb.append(" " + (i + 1) + "." + foundTasks.get(i) + "\n");
+        }
+        sb.append(formatLine());
+        return sb.toString();
+    }
+
+    /**
+     * Prints the status of a task as marked or unmarked.
+     *
+     * @param task task to update
+     * @param done true if task is done, false otherwise
+     */
+    public void printMark(Task task, boolean done) {
+        System.out.print(formatMark(task, done));
     }
     /**
      * Prints the full list of tasks.
@@ -62,14 +111,7 @@ public class UI {
      * @param tasks task list to print
      */
     public void printList(TaskList tasks) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("____________________________________________________________\n");
-        sb.append("Here are the tasks in your list:\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            sb.append(i + 1).append(".").append(tasks.get(i)).append("\n");
-        }
-        sb.append("____________________________________________________________\n");
-        System.out.print(sb);
+        System.out.print(formatList(tasks));
     }
     /**
      * Prints confirmation of adding a task.
@@ -78,21 +120,13 @@ public class UI {
      * @param count number of tasks in the list
      */
     public void printAdded(Task task, int count) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("____________________________________________________________\n");
-        sb.append("Got it. I've added this task:\n");
-        sb.append("  ").append(task).append("\n");
-        sb.append("Now you have ").append(count).append(" tasks in the list.\n");
-        sb.append("____________________________________________________________\n");
-        System.out.print(sb);
+        System.out.print(formatAdded(task, count));
     }
     /**
      * Prints a divider line.
      */
     public void line() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("____________________________________________________________\n");
-        System.out.print(sb);
+        System.out.print(formatLine());
     }
     /**
      * Prints confirmation of deleting a task.
@@ -101,14 +135,7 @@ public class UI {
      * @param count number of tasks remaining
      */
     public void printDeleted(Task task, int count) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("____________________________________________________________\n");
-        sb.append(" Noted. I've removed this task:\n");
-        sb.append("   ").append(task).append("\n");
-        sb.append("Now you have ").append(count).append(" tasks in the list.\n");
-        sb.append("____________________________________________________________\n");
-        System.out.print(sb);
-
+        System.out.print(formatDeleted(task, count));
     }
     /**
      * Prints an error message when loading fails.
@@ -119,11 +146,6 @@ public class UI {
 
 
     public void printFoundTasks(List<Task> foundTasks) {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Here are the matching tasks in your list:");
-        for (int i = 0; i < foundTasks.size(); i++) {
-            System.out.println(" " + (i + 1) + "." + foundTasks.get(i));
-        }
-        System.out.println("____________________________________________________________");
+        System.out.print(formatFoundTasks(foundTasks));
     }
 }
