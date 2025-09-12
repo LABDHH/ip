@@ -44,10 +44,14 @@ public class Storage {
             Scanner sc = new Scanner(new File(filePath));
             while (sc.hasNextLine()) {
                 String inp = sc.nextLine().trim();
-                if (inp.isEmpty()) continue;
+                if (inp.isEmpty()) {
+                    continue;
+                }
 
                 String[] parts = inp.split("\\|");
-                for (int i = 0; i < parts.length; i++) parts[i] = parts[i].trim();
+                for (int i = 0; i < parts.length; i++) {
+                    parts[i] = parts[i].trim();
+                }
 
                 String type = parts[0];
                 boolean isDone = parts[1].equals("1");
@@ -55,18 +59,24 @@ public class Storage {
                 switch (type) {
                 case "T":
                     Task todo = new Todo(parts[2]);
-                    if (isDone) todo.markAsDone();
+                    if (isDone) {
+                        todo.markAsDone();
+                    }
                     storeTask.add(todo);
                     break;
                 case "D":
                     Task deadline = new Deadline(parts[2], parts[3]);
-                    if (isDone) deadline.markAsDone();
+                    if (isDone) {
+                        deadline.markAsDone();
+                    }
                     storeTask.add(deadline);
                     break;
                 case "E":
                     String[] timeline = parts[3].split(" - ");
                     Task event = new Event(parts[2], timeline[0], timeline[1]);
-                    if (isDone) event.markAsDone();
+                    if (isDone) {
+                        event.markAsDone();
+                    }
                     storeTask.add(event);
                     break;
                 default:

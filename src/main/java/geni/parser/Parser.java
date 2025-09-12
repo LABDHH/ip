@@ -2,13 +2,13 @@ package geni.parser;
 
 import geni.exception.GeniException;
 import java.util.ArrayList;
-import geni.ui.UI;
 import geni.storage.Storage;
 import geni.task.Deadline;
 import geni.task.Event;
 import geni.task.Task;
 import geni.task.TaskList;
 import geni.task.Todo;
+import geni.ui.UI;
 
 
 /**

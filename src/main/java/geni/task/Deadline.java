@@ -47,7 +47,7 @@ public class Deadline extends Task {
     @Override
     public String toSaveFormat() {
 
-        DateTimeFormatter saveFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        DateTimeFormatter saveFmt = DateTimeFormatter.ofPattern("yyy-MM-dd HHmm");
         return "D | " + (super.getStatusIcon().equals("X") ? "1" : "0")
                 + " | " + super.getDescription() + " | " + by.format(saveFmt);
     }

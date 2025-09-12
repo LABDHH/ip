@@ -36,9 +36,21 @@ public class UI {
         sb.append("____________________________________________________________");
         return sb.toString();
     }
+    /**
+     * Returns a divider line string.
+     *
+     * @return divider line
+     */
     public String formatLine() {
         return "____________________________________________________________\n";
     }
+    /**
+     * Formats the status of a task as a string.
+     *
+     * @param task task to format
+     * @param done true if task is done, false otherwise
+     * @return formatted task string
+     */
     public String formatMark(Task task, boolean done) {
         StringBuilder sb = new StringBuilder();
         sb.append(formatLine());
@@ -54,6 +66,12 @@ public class UI {
         sb.append(formatLine());
         return sb.toString();
     }
+    /**
+     * Formats the list of tasks as a string.
+     *
+     * @param tasks task list to format
+     * @return formatted task list string
+     */
     public String formatList(TaskList tasks) {
         StringBuilder sb = new StringBuilder();
         sb.append(formatLine());
@@ -64,7 +82,13 @@ public class UI {
         sb.append(formatLine());
         return sb.toString();
     }
-
+    /**
+     * Formats the confirmation message when a task is added.
+     *
+     * @param task  task that was added
+     * @param count number of tasks in the list
+     * @return formatted confirmation string
+     */
     public String formatAdded(Task task, int count) {
         StringBuilder sb = new StringBuilder();
         sb.append(formatLine());
@@ -74,7 +98,13 @@ public class UI {
         sb.append(formatLine());
         return sb.toString();
     }
-
+    /**
+     * Formats the confirmation message when a task is deleted.
+     *
+     * @param task  task that was deleted
+     * @param count number of tasks remaining
+     * @return formatted confirmation string
+     */
     public String formatDeleted(Task task, int count) {
         StringBuilder sb = new StringBuilder();
         sb.append(formatLine());
@@ -84,7 +114,12 @@ public class UI {
         sb.append(formatLine());
         return sb.toString();
     }
-
+    /**
+     * Formats the list of tasks found by a search.
+     *
+     * @param foundTasks list of matching tasks
+     * @return formatted string of found tasks
+     */
     public String formatFoundTasks(List<Task> foundTasks) {
         StringBuilder sb = new StringBuilder();
         sb.append(formatLine());
@@ -144,7 +179,11 @@ public class UI {
         System.out.println("OOPS! Something went wrong! Starting with an empty task list.");
     }
 
-
+    /**
+     * Prints the list of tasks found by a search.
+     *
+     * @param foundTasks list of matching tasks
+     */
     public void printFoundTasks(List<Task> foundTasks) {
         System.out.print(formatFoundTasks(foundTasks));
     }
