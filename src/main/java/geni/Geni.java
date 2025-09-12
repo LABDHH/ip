@@ -45,7 +45,7 @@ public class Geni {
         while (true) {
             try {
                 String inp = sc.nextLine();
-                String response = parser.parseAndExecute(inp); // now returns String
+                String response = parser.parseAndExecute(inp);
                 System.out.print(response);
             } catch (GeniException e) {
                 if (e.getMessage().equals("exit")) {
@@ -64,7 +64,7 @@ public class Geni {
     }
     public String getResponse(String input) {
         try {
-            // Change parseAndExecute to return a String instead of printing
+
             return parser.parseAndExecute(input);
         } catch (GeniException e) {
             if (e.getMessage().equals("exit")) {
@@ -80,6 +80,6 @@ public class Geni {
      */
     public static void main(String[] args) {
         Launcher.main(args);
-       // new Geni("./geni.txt").run();
+
     }
 }
