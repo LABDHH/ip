@@ -14,6 +14,7 @@ public class TaskList {
      */
 
     public TaskList() {
+
         this.tasks = new ArrayList<>();
     }
     /**
@@ -22,6 +23,7 @@ public class TaskList {
      * @param tasks initial list of tasks
      */
     public TaskList(ArrayList<Task> tasks) {
+        assert tasks != null : "TaskList constructor: tasks must not be null";
         this.tasks = tasks;
     }
 

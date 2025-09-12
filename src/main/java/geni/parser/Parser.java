@@ -40,6 +40,7 @@ public class Parser {
      * @throws GeniException if input is invalid or exit is requested
      */
     public String parseAndExecute(String inp) throws GeniException {
+        assert inp != null : "parseAndExecute(): input must not be null";
         inp = inp.trim();
         String[] inpt = splitted(inp, " ");
         String command = inpt[0];

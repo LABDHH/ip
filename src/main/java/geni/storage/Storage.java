@@ -30,6 +30,7 @@ public class Storage {
      */
 
     public Storage(String filePath) {
+        assert filePath != null && !filePath.isEmpty() : "Storage.filePath must be non-null and non-empty";
         this.filePath = filePath;
     }
 

@@ -24,6 +24,8 @@ public class Event extends Task {
     public Event(String description, String fromStr, String toStr) throws GeniException {
 
         super(description);
+        assert fromStr != null && !fromStr.trim().isEmpty() : "Event.fromStr must be non-null and not empty";
+        assert toStr   != null && !toStr.trim().isEmpty()   : "Event.toStr must be non-null and not empty";
 
         try {
             DateTimeFormatter inputFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");

@@ -20,7 +20,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String time) throws GeniException {
         super(description);
-
+        assert time != null && !time.trim().isEmpty() : "Deadline.time must be non-null and not empty";
         try {
             DateTimeFormatter inputFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             this.by = LocalDateTime.parse(time.trim(), inputFmt);
