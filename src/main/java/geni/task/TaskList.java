@@ -1,6 +1,10 @@
 package geni.task;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Represents a list of tasks.
@@ -73,6 +77,33 @@ public class TaskList {
             }
         }
         return results;
+    }
+
+    public String findFreeSlot(int hours) {
+        long neededMinutes = hours * 60L;
+        List<LocalDateTime[]> busy = new ArrayList<>();
+        for (Task t : tasks) {
+            busy.addAll(t.getBusyIntervals());
+        }
+
+        busy.sort(Comparator.comparing(slot -> slot[0]));
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime prevEnd = now;
+
+        for (LocalDateTime[] slot : busy) {
+            if (slot[1].isBefore(now)) continue;
+            LocalDateTime start = slot[0].isBefore(now) ? now : slot[0];
+            long gapMinutes = Duration.between(prevEnd, start).toMinutes();
+            if (gapMinutes >= neededMinutes) {
+                return "Nearest free " + hours + "h slot: " +
+                        prevEnd + " to " + prevEnd.plusMinutes(neededMinutes);
+            }
+            prevEnd = slot[1].isAfter(prevEnd) ? slot[1] : prevEnd;
+        }
+
+        return "Nearest free " + hours + "h slot: " +
+                prevEnd + " to " + prevEnd.plusMinutes(neededMinutes);
     }
 
 }

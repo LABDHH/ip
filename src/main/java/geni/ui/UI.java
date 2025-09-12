@@ -187,4 +187,8 @@ public class UI {
     public void printFoundTasks(List<Task> foundTasks) {
         System.out.print(formatFoundTasks(foundTasks));
     }
+
+    public String formatFreeSlot(String msg) {
+        return formatLine() + msg + "\n" + formatLine();
+    }
 }
