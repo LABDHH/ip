@@ -8,6 +8,7 @@ package geni.task;
 
 
 public class Task {
+
     protected String description;
     protected boolean isDone;
     /**
@@ -17,6 +18,7 @@ public class Task {
      * @param description description of the task
      */
     public Task(String description) {
+        assert description != null && !description.isEmpty() : "Task.description must be non-null and non-empty";
         this.description = description;
         this.isDone = false;
     }
