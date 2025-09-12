@@ -21,7 +21,7 @@ public class DeadlineTest {
     @Test
     public void testToStringFormat() throws GeniException {
         Deadline deadline = new Deadline("Submit report", "2025-09-01 1800");
-        String expected = "[D][ ] Submit report (by: Sep 1 2025, 6:00pm)";
+        String expected = "[D][ ] Submit report (by: Sept 1 2025, 6:00pm)";
         assertEquals(expected, deadline.toString());
     }
 
