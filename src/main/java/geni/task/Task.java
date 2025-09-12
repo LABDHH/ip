@@ -1,5 +1,9 @@
 package geni.task;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents a generic task with a description and completion status.
  * Serves as the base class for specific task types like Todo, Deadline, and Event.
@@ -70,6 +74,10 @@ public class Task {
      */
     public String toSaveFormat() {
         return "";
+    }
+
+    public List<LocalDateTime[]> getBusyIntervals() {
+        return new ArrayList<>(); // default: no busy time
     }
 
 }

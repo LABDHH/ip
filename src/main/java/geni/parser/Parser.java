@@ -67,6 +67,8 @@ public class Parser {
             return handleDelete(inpt);
         } else if (command.equals("find")) {
             return handleFind(inp);
+        } else if (command.equals("free")) {
+            return handleFindFree(inp);
         } else {
             throw new GeniException("Sorry, I don’t know what \"" + command + "\" means.");
         }
@@ -213,6 +215,19 @@ public class Parser {
      */
     public boolean isChangingStatus(String string) {
         return string.equals("mark") || string.equals("unmark");
+    }
+
+    private String handleFindFree(String inp) throws GeniException {
+        if (inp.length() <= 5) {
+            throw new GeniException("Please specify a duration in hours, e.g., free 4.");
+        }
+        int hours;
+        try {
+            hours = Integer.parseInt(inp.substring(5).trim());
+        } catch (NumberFormatException e) {
+            throw new GeniException("Please enter a valid number of hours.");
+        }
+        return tasks.findFreeSlot(hours);
     }
 
 }

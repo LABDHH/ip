@@ -3,6 +3,9 @@ import geni.exception.GeniException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents a task with a specific deadline.
  * Stores the description and the date-time by which it must be done.
@@ -50,5 +53,13 @@ public class Deadline extends Task {
         DateTimeFormatter saveFmt = DateTimeFormatter.ofPattern("yyy-MM-dd HHmm");
         return "D | " + (super.getStatusIcon().equals("X") ? "1" : "0")
                 + " | " + super.getDescription() + " | " + by.format(saveFmt);
+    }
+    public LocalDateTime getDeadline() { return by; }
+
+    @Override
+    public List<LocalDateTime[]> getBusyIntervals() {
+        List<LocalDateTime[]> list = new ArrayList<>();
+        list.add(new LocalDateTime[] { getDeadline().minusHours(1), getDeadline() });
+        return list;
     }
 }

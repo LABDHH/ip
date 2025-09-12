@@ -3,6 +3,8 @@ import geni.exception.GeniException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a task that occurs over a specific time interval.
@@ -60,5 +62,15 @@ public class Event extends Task {
         return "E | " + (super.getStatusIcon().equals("X") ? "1" : "0")
                 + " | " + super.getDescription() + " | "
                 + from.format(saveFmt) + " - " + to.format(saveFmt);
+    }
+    public LocalDateTime getStartTime() { return from; }
+
+    public LocalDateTime getEndTime() { return to; }
+
+    @Override
+    public List<LocalDateTime[]> getBusyIntervals() {
+        List<LocalDateTime[]> list = new ArrayList<>();
+        list.add(new LocalDateTime[] { getStartTime(), getEndTime() });
+        return list;
     }
 }
