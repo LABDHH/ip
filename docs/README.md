@@ -103,11 +103,26 @@ It deletes a task from the list
 
 Format: delete index 
 
+Example :`delete 1`
+
 ```
 expected output
 Noted. I've removed this task:
   [D][ ] assignment (by: Sep 19 2025, 11:59pm)
 Now you have 2 tasks in the list.
+```
+
+## Find a task
+It finds a task in the list that matches the description
+
+Format: find description
+
+Example: `find meeting `
+
+```
+expected output
+Here are the matching tasks in your list:
+1. [E][ ] meeting (from: Jan 1 2025, 11:59pm to: Jan 2 2025, 11:59pm)
 ```
 
 ## Quitting Geni
