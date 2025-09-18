@@ -36,6 +36,15 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        // +++ AI-assisted (ChatGPT): Make avatar circular by clipping and limit image size.
+        // This line was suggested/generated with AI to improve appearance of profile pictures.
+        {
+            double radius = 32.0; // radius in pixels; tweak as desired
+            javafx.scene.shape.Circle clip = new javafx.scene.shape.Circle(radius, radius, radius);
+            displayPicture.setFitWidth(radius * 2);
+            displayPicture.setFitHeight(radius * 2);
+            displayPicture.setClip(clip);
+        }
     }
 
     /**
@@ -56,6 +65,25 @@ public class DialogBox extends HBox {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
+    }
+    // New helper methods for styling and layout control
+    public void setAsUser() {
+                this.getStyleClass().add("dialog-user");
+    }
+
+    public void setAsBot() {
+        this.getStyleClass().add("dialog-bot");
+    }
+
+    public void setAsError() {
+        // for messages that represent errors
+        this.getStyleClass().add("dialog-error");
+    }
+
+    /** Allow MainWindow to suggest an upper limit for the dialog text width */
+    public void setMaxDialogWidth(double width) {
+        dialog.setMaxWidth(width);
+        dialog.setWrapText(true);
     }
 }
 
