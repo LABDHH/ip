@@ -12,7 +12,7 @@ import geni.ui.UI;
  * Entry point of the Geni application.
  * Initializes components and runs the main loop.
  */
-
+// Solution below inspired by https://github.com/david-eom/CS2103T-IP/tree/master
 public class Geni {
     private UI ui;
     private Storage storage;
