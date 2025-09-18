@@ -22,6 +22,17 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+
+            // ✅ Attach stylesheet here
+            String cssPath = "/styles/styles.css";
+            var cssUrl = Main.class.getResource(cssPath);
+            if (cssUrl != null) {
+                scene.getStylesheets().add(cssUrl.toExternalForm());
+                System.out.println("Loaded stylesheet: " + cssUrl.toExternalForm());
+            } else {
+                System.err.println("ERROR: stylesheet not found at " + cssPath);
+            }
+
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuke(geni);
             stage.show();
