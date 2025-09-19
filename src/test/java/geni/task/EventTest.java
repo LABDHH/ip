@@ -21,7 +21,7 @@ public class EventTest {
     @Test
     public void testToStringFormat() throws GeniException {
         Event event = new Event("Team Meeting", "2025-09-01 1400", "2025-09-01 1600");
-        String expected = "[E][ ] Team Meeting (from: Sept 1 2025, 2:00pm to: Sept 1 2025, 4:00pm)";
+        String expected = "[E][ ] Team Meeting (from: Sep 1 2025, 2:00pm to: Sep 1 2025, 4:00pm)";
         assertEquals(expected, event.toString());
     }
 

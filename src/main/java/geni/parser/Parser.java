@@ -1,7 +1,8 @@
 package geni.parser;
 
-import geni.exception.GeniException;
 import java.util.ArrayList;
+
+import geni.exception.GeniException;
 import geni.storage.Storage;
 import geni.task.Deadline;
 import geni.task.Event;
@@ -41,6 +42,7 @@ public class Parser {
      */
     public String parseAndExecute(String inp) throws GeniException {
         assert inp != null : "parseAndExecute(): input must not be null";
+
         inp = inp.trim();
         String[] inpt = splitted(inp, " ");
         String command = inpt[0];
@@ -126,12 +128,14 @@ public class Parser {
      * @throws GeniException if format is invalid
      */
     private String handleAddDeadline(String inp) throws GeniException {
-        String local_inp = inp.substring(9);
-        String[] local_1 = local_inp.split("/by");
-        if (local_1.length < 2) {
-            throw new GeniException("Incorrect entry, enter both description of deadline and time it is due separated by /by.");
+        String localInp = inp.substring(9);
+        String[] localOne = localInp.split("/by");
+        if (localOne.length < 2) {
+            throw new GeniException(
+                    "Incorrect entry, enter both description of deadline and time it is due "
+                            + "separated by /by.");
         }
-        Task task = new Deadline(local_1[0].trim(), local_1[1].trim());
+        Task task = new Deadline(localOne[0].trim(), localOne[1].trim());
         tasks.add(task);
         storage.saveAdd(task);
         return ui.formatAdded(task, tasks.size());
@@ -143,18 +147,18 @@ public class Parser {
      * @throws GeniException if format is invalid
      */
     private String handleAddEvent(String inp) throws GeniException {
-        String local_inp = inp.substring(6);
-        String[] local_1 = local_inp.split("/from");
-        if (local_1.length < 2) {
+        String localInp = inp.substring(6);
+        String[] localOne = localInp.split("/from");
+        if (localOne.length < 2) {
             throw new GeniException("Incorrect format, enter in format: event description /from time /to time.");
         }
-        String desc = local_1[0].trim();
-        String[] local_2 = local_1[1].trim().split("/to");
-        if (local_2.length < 2) {
+        String desc = localOne[0].trim();
+        String[] localTwo = localOne[1].trim().split("/to");
+        if (localTwo.length < 2) {
             throw new GeniException("Incorrect format, enter in format: event description /from time /to time.");
         }
-        String from = local_2[0].trim();
-        String to = local_2[1].trim();
+        String from = localTwo[0].trim();
+        String to = localTwo[1].trim();
         Task task = new Event(desc, from, to);
         tasks.add(task);
         storage.saveAdd(task);

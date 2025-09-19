@@ -125,6 +125,20 @@ Here are the matching tasks in your list:
 1. [E][ ] meeting (from: Jan 1 2025, 11:59pm to: Jan 2 2025, 11:59pm)
 ```
 
+## Finding the nearest free SLot
+It finds the nearest free time slot for the time period required
+
+Format: free time in hours
+
+Example: `free 4`
+
+```
+expected output
+Nearest free 4h slot: 2025-09-19 13:26 to 2025-09-19 17:26
+```
+
+
+
 ## Quitting Geni
 
 Just type bye

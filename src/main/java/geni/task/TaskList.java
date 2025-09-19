@@ -2,6 +2,7 @@ package geni.task;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -69,6 +70,13 @@ public class TaskList {
     public int size() {
         return tasks.size();
     }
+
+    /**
+     * Finds all tasks whose description contains the given keyword.
+     *
+     * @param keyword substring to look for in task descriptions
+     * @return list of matching tasks, or an empty list if none found
+     */
     public ArrayList<Task> find(String keyword) {
         ArrayList<Task> results = new ArrayList<>();
         for (Task t : this.tasks) {
@@ -79,7 +87,17 @@ public class TaskList {
         return results;
     }
 
+    /**
+     * Finds a free continuous time slot of at least the given number of hours
+     * that does not overlap with any busy intervals from existing tasks.
+     *
+     * @param hours required duration in hours
+     * @return description of the free slot, or {@code null} / message if none available
+     */
     public String findFreeSlot(int hours) {
+        if (hours <= 0) {
+            throw new IllegalArgumentException("hours must be positive");
+        }
         long neededMinutes = hours * 60L;
         List<LocalDateTime[]> busy = new ArrayList<>();
         for (Task t : tasks) {
@@ -90,20 +108,23 @@ public class TaskList {
 
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime prevEnd = now;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String freeTime = "Nearest free " + hours + "h slot: "
+                + prevEnd.format(formatter) + " to " + prevEnd.plusMinutes(neededMinutes).format(formatter);
 
         for (LocalDateTime[] slot : busy) {
-            if (slot[1].isBefore(now)) continue;
+            if (slot[1].isBefore(now)) {
+                continue;
+            }
             LocalDateTime start = slot[0].isBefore(now) ? now : slot[0];
             long gapMinutes = Duration.between(prevEnd, start).toMinutes();
             if (gapMinutes >= neededMinutes) {
-                return "Nearest free " + hours + "h slot: " +
-                        prevEnd + " to " + prevEnd.plusMinutes(neededMinutes);
+                return freeTime;
             }
             prevEnd = slot[1].isAfter(prevEnd) ? slot[1] : prevEnd;
         }
 
-        return "Nearest free " + hours + "h slot: " +
-                prevEnd + " to " + prevEnd.plusMinutes(neededMinutes);
+        return freeTime;
     }
 
 }

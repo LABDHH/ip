@@ -8,11 +8,11 @@ import geni.storage.Storage;
 import geni.task.TaskList;
 import geni.ui.UI;
 
+// Solution below inspired by https://github.com/david-eom/CS2103T-IP/tree/master
 /**
  * Entry point of the Geni application.
  * Initializes components and runs the main loop.
  */
-// Solution below inspired by https://github.com/david-eom/CS2103T-IP/tree/master
 public class Geni {
     private UI ui;
     private Storage storage;
@@ -59,9 +59,23 @@ public class Geni {
         }
 
     }
+
+    /**
+     * Returns the greeting message of the assistant.
+     *
+     * @return greeting message as a string
+     */
     public String getGreetingMessage() {
+
         return ui.getGreeting();
     }
+
+    /**
+     * Processes a single user input and returns the assistant's response.
+     *
+     * @param input user command string
+     * @return response from the assistant
+     */
     public String getResponse(String input) {
         try {
 
@@ -73,13 +87,5 @@ public class Geni {
             return "OOPS! " + e.getMessage();
         }
     }
-    /**
-     * The main entry point of the Geni application.
-     *
-     * @param args command-line arguments (not used)
-     */
-    /*public static void main(String[] args) {
-        Launcher.main(args);
 
-    }*/
 }

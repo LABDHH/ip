@@ -1,10 +1,13 @@
 package geni.task;
-import geni.exception.GeniException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+
+import geni.exception.GeniException;
+
 
 /**
  * Represents a task with a specific deadline.
@@ -51,10 +54,11 @@ public class Deadline extends Task {
     public String toSaveFormat() {
 
         DateTimeFormatter saveFmt = DateTimeFormatter.ofPattern("yyy-MM-dd HHmm");
-        return "D | " + (super.getStatusIcon().equals("X") ? "1" : "0")
+        return "D | " + (super.isDone)
                 + " | " + super.getDescription() + " | " + by.format(saveFmt);
     }
-    public LocalDateTime getDeadline() { return by; }
+    public LocalDateTime getDeadline() {
+        return by; }
 
     @Override
     public List<LocalDateTime[]> getBusyIntervals() {

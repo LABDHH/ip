@@ -1,10 +1,13 @@
 package geni.task;
-import geni.exception.GeniException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+
+import geni.exception.GeniException;
+
 
 /**
  * Represents a task that occurs over a specific time interval.
@@ -27,7 +30,7 @@ public class Event extends Task {
 
         super(description);
         assert fromStr != null && !fromStr.trim().isEmpty() : "Event.fromStr must be non-null and not empty";
-        assert toStr   != null && !toStr.trim().isEmpty()   : "Event.toStr must be non-null and not empty";
+        assert toStr != null && !toStr.trim().isEmpty() : "Event.toStr must be non-null and not empty";
 
         try {
             DateTimeFormatter inputFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -59,13 +62,15 @@ public class Event extends Task {
     @Override
     public String toSaveFormat() {
         DateTimeFormatter saveFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return "E | " + (super.getStatusIcon().equals("X") ? "1" : "0")
+        return "E | " + (super.isDone ? "1" : "0")
                 + " | " + super.getDescription() + " | "
                 + from.format(saveFmt) + " - " + to.format(saveFmt);
     }
-    public LocalDateTime getStartTime() { return from; }
+    public LocalDateTime getStartTime() {
+        return from; }
 
-    public LocalDateTime getEndTime() { return to; }
+    public LocalDateTime getEndTime() {
+        return to; }
 
     @Override
     public List<LocalDateTime[]> getBusyIntervals() {

@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Geni using FXML.
  */
 public class Main extends Application {
 
@@ -23,7 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
 
-            // ✅ Attach stylesheet here
+            // Attach stylesheet here
             String cssPath = "/styles/styles.css";
             var cssUrl = Main.class.getResource(cssPath);
             if (cssUrl != null) {

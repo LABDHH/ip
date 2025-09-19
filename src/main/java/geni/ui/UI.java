@@ -1,14 +1,19 @@
 package geni.ui;
 
+import java.util.List;
+
 import geni.task.Task;
 import geni.task.TaskList;
-import java.util.List;
+
 /**
  * Handles all user interactions.
  * Provides methods to display messages, tasks, and errors.
  */
 
 public class UI {
+
+    private static final String DIVIDER =
+            "____________________________________________________________\n";
     /**
      * Returns the greeting message.
      *
@@ -16,11 +21,11 @@ public class UI {
      */
     public String getGreeting() {
         StringBuilder sb = new StringBuilder();
-        sb.append("____________________________________________________________\n");
+        sb.append(DIVIDER);
         sb.append(" Hello! I'm Geni\n");
 
         sb.append(" What can I do for you?\n");
-        sb.append("____________________________________________________________\n");
+        sb.append(DIVIDER);
         return sb.toString();
     }
 
@@ -31,7 +36,7 @@ public class UI {
      */
     public String getExit() {
         StringBuilder sb = new StringBuilder();
-        sb.append("____________________________________________________________\n");
+        sb.append(DIVIDER);
         sb.append(" Bye. Hope to see you again soon!\n");
         sb.append("____________________________________________________________");
         return sb.toString();
@@ -42,7 +47,7 @@ public class UI {
      * @return divider line
      */
     public String formatLine() {
-        return "____________________________________________________________\n";
+        return DIVIDER;
     }
     /**
      * Formats the status of a task as a string.

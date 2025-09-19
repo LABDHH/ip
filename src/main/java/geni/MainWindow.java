@@ -25,8 +25,15 @@ public class MainWindow extends AnchorPane {
     private Geni geni;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Sample_User_Icon.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/chatbot_geni.png"));
+    private Image geniImage = new Image(this.getClass().getResourceAsStream("/images/chatbot_geni.png"));
 
+    /**
+     * Initializes the main window after its FXML has been loaded.
+     * <p>
+     * Sets up scroll behavior, dialog resizing, stylesheet attachment,
+     * and displays an initial greeting message from the assistant.
+     * </p>
+     */
     @FXML
     public void initialize() {
         // keep scroll at bottom when new messages are added
@@ -54,6 +61,12 @@ public class MainWindow extends AnchorPane {
                 }
             }
         });
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(
+                        "Hey, I am your personal assistant!\n How May I help you today ?",
+                        geniImage
+                )
+        );
     }
 
     /** Injects the Duke instance */
@@ -72,7 +85,7 @@ public class MainWindow extends AnchorPane {
         String response = geni.getResponse(input);
 
         var userBox = DialogBox.getUserDialog(input, userImage);
-        var botBox = DialogBox.getDukeDialog(response, dukeImage);
+        var botBox = DialogBox.getDukeDialog(response, geniImage);
 
         // Mark botBox as error if response seems to indicate an error (simple heuristic)
         if (response != null) {

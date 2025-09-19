@@ -68,7 +68,7 @@ public class DialogBox extends HBox {
     }
     // New helper methods for styling and layout control
     public void setAsUser() {
-                this.getStyleClass().add("dialog-user");
+        this.getStyleClass().add("dialog-user");
     }
 
     public void setAsBot() {

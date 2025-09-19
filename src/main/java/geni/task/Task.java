@@ -76,6 +76,15 @@ public class Task {
         return "";
     }
 
+    /**
+     * Returns the list of busy time intervals for this task.
+     * <p>
+     * Default implementation returns an empty list, meaning the task has no busy intervals.
+     * Subclasses that occupy time (e.g. Deadline, Event) should override this.
+     * </p>
+     *
+     * @return list of busy intervals; empty if none
+     */
     public List<LocalDateTime[]> getBusyIntervals() {
         return new ArrayList<>(); // default: no busy time
     }
