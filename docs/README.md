@@ -54,7 +54,8 @@ Here are the tasks in your list:
 
 ## Mark tasks as done
 
-It marks a task as done in the list./
+It marks a task as done in the list.
+
 Format: mark index
 
 Example: `mark 1`

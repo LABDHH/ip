@@ -36,6 +36,10 @@ public class Event extends Task {
             DateTimeFormatter inputFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             this.from = LocalDateTime.parse(fromStr.trim(), inputFmt);
             this.to = LocalDateTime.parse(toStr.trim(), inputFmt);
+            if (this.from.isAfter(this.to)) {
+                throw new GeniException("Start time cannot be after end time!");
+            }
+
 
         } catch (DateTimeParseException e) {
             throw new GeniException("Invalid date-time format! Please use format: yyyy-MM-dd HHmm");
