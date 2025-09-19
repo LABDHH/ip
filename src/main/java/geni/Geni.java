@@ -78,8 +78,8 @@ public class Geni {
      *
      * @param args command-line arguments (not used)
      */
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Launcher.main(args);
 
-    }
+    }*/
 }

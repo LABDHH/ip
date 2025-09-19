@@ -46,7 +46,7 @@ test {
 }
 
 application {
-    mainClass.set("geni.Main")
+    mainClass.set("geni.Launcher")
 }
 
 shadowJar {
